@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which Olandria Are You? · The Strategic Files</title>
+<meta property="og:title" content="Which Olandria Are You? · The Strategic Files">
+<meta property="og:description" content="Only a real Doll makes it to the end. 8 questions. Zero wrong answers.">
+<meta name="theme-color" content="#3D1F14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --cr:#F5EDE0;--parch:#E2D1BC;--tan:#C9A882;
+  --terra:#8B4A38;--terra2:#D4897A;--terra3:#F2D5CC;
+  --brk:#3D1F14;--brm:#6B3828;--mute:#9A7B6A;
+  --wh:#FAF4EC;--gold:#B8874A;
+}
+html,body{font-family:'DM Sans',sans-serif;background:var(--brk);min-height:100vh;color:var(--brk);overflow-x:hidden;}
+
+/* SCREENS */
+.screen{display:none;min-height:100vh;flex-direction:column;}
+.screen.active{display:flex;}
+
+/* ── COVER ── */
+.cover{background:var(--brk);flex:1;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden;}
+.cover-hero{width:100%;height:58vh;min-height:340px;position:relative;overflow:hidden;}
+.cover-hero img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(61,31,20,0.15) 0%,rgba(61,31,20,0.05) 35%,rgba(61,31,20,0.92) 88%,var(--brk) 100%);}
+.cover-badge{position:absolute;top:18px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(201,168,130,0.75);background:rgba(61,31,20,0.65);padding:5px 14px;border-radius:20px;backdrop-filter:blur(6px);white-space:nowrap;}
+.cover-copy{width:100%;padding:0 26px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:-48px;position:relative;z-index:2;}
+.c-title{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:var(--cr);line-height:1.05;margin-bottom:12px;}
+.c-title em{font-style:italic;color:var(--terra2);display:block;}
+.c-sub{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--tan);margin-bottom:22px;line-height:1.65;max-width:300px;}
+.c-tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:22px;}
+.ctag{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 11px;border-radius:20px;background:rgba(201,168,130,0.1);border:0.5px solid rgba(201,168,130,0.22);color:var(--tan);}
+.btn-go{background:var(--terra);color:var(--cr);border:none;border-radius:30px;padding:15px 44px;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;box-shadow:0 8px 28px rgba(139,74,56,0.45);transition:all .22s;width:100%;max-width:270px;}
+.btn-go:hover{background:var(--terra2);transform:translateY(-2px);}
+.c-note{font-size:10px;color:rgba(201,168,130,0.38);margin-top:10px;letter-spacing:0.06em;}
+
+/* ── Q SCREEN ── */
+.qs{background:var(--wh);flex:1;display:flex;flex-direction:column;}
+.qhdr{background:var(--brk);padding:11px 20px;display:flex;align-items:center;gap:11px;position:sticky;top:0;z-index:10;}
+.qhdr-logo{font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;color:var(--terra2);white-space:nowrap;}
+.prog-wrap{flex:1;}
+.prog-track{height:2px;background:rgba(201,168,130,0.14);border-radius:1px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--terra2);border-radius:1px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.qctr{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--tan);white-space:nowrap;}
+
+.qwrap{flex:1;display:flex;flex-direction:column;}
+.qimg{width:100%;height:210px;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--brk),var(--brm));flex-shrink:0;}
+.qimg img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;transition:opacity .3s;}
+.qimg-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,var(--wh) 100%);}
+.qimg-vibe{position:absolute;top:12px;left:16px;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;background:rgba(61,31,20,0.72);color:var(--terra2);padding:4px 10px;border-radius:10px;backdrop-filter:blur(4px);}
+
+.qbody{padding:20px 20px 4px;}
+.qnum{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--terra2);margin-bottom:8px;}
+.qtext{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;color:var(--brk);line-height:1.42;margin-bottom:6px;}
+.qflavor{font-size:11px;color:var(--mute);font-style:italic;margin-bottom:18px;line-height:1.55;padding:8px 12px;background:var(--cr);border-radius:6px;border-left:2px solid var(--parch);}
+.opts{display:flex;flex-direction:column;gap:7px;}
+.opt{background:var(--wh);border:0.5px solid var(--parch);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .18s ease;display:flex;align-items:flex-start;gap:10px;}
+.opt:active{transform:scale(.99);}
+.opt.sel{border-color:var(--terra);background:linear-gradient(135deg,var(--terra3),rgba(242,213,204,.35));box-shadow:0 2px 12px rgba(139,74,56,.14);}
+.opt-lt{width:22px;height:22px;border-radius:50%;background:var(--parch);color:var(--brm);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0;margin-top:1px;transition:all .18s;}
+.opt.sel .opt-lt{background:var(--terra);color:var(--cr);}
+.opt-tx{font-size:13px;color:var(--brk);line-height:1.55;}
+.qnav{padding:15px 20px 28px;display:flex;justify-content:flex-end;background:var(--wh);}
+.btn-nx{background:var(--terra);color:var(--cr);border:none;border-radius:24px;padding:12px 28px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;opacity:.32;transition:all .2s;pointer-events:none;box-shadow:0 4px 16px rgba(139,74,56,.28);}
+.btn-nx.rdy{opacity:1;pointer-events:all;}
+.btn-nx.rdy:hover{background:var(--terra2);transform:translateY(-1px);}
+
+/* ── RESULT ── */
+.rs{background:var(--brk);flex:1;display:flex;flex-direction:column;}
+.rhdr{background:rgba(255,255,255,.03);padding:11px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid rgba(201,168,130,.1);}
+.rhdr-logo{font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;color:var(--terra2);}
+.rhdr-tag{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,130,.3);}
+.rhero{width:100%;height:270px;position:relative;overflow:hidden;background:linear-gradient(135deg,#5A3020,#8B4A38);}
+.rhero img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;}
+.rhero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(61,31,20,.25) 0%,rgba(61,31,20,.92) 80%,var(--brk) 100%);}
+.rhero-copy{position:absolute;bottom:0;left:0;right:0;padding:18px 22px 14px;}
+.r-ey{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--terra2);margin-bottom:7px;}
+.r-ey::before,.r-ey::after{content:'✦';margin:0 5px;font-size:7px;}
+.r-name{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--cr);line-height:1;margin-bottom:5px;}
+.r-tagline{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--terra2);}
+.rbody{padding:20px 22px;display:flex;flex-direction:column;gap:17px;}
+.r-desc{font-size:13px;color:rgba(245,237,224,.83);line-height:1.8;}
+.r-desc strong{color:var(--terra2);font-weight:500;}
+.r-desc em{color:rgba(245,237,224,.65);}
+.r-quote{border-left:2px solid var(--terra);padding:10px 15px;background:rgba(255,255,255,.04);border-radius:0 8px 8px 0;}
+.rq-tx{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--cr);line-height:1.65;}
+.sec-lbl{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--terra2);margin-bottom:9px;}
+.traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.trait{background:rgba(255,255,255,.05);border:0.5px solid rgba(201,168,130,.14);border-radius:8px;padding:9px 11px;font-size:11px;color:rgba(245,237,224,.78);line-height:1.5;display:flex;gap:6px;align-items:flex-start;}
+.trdot{width:3px;height:3px;border-radius:50%;background:var(--terra2);margin-top:5px;flex-shrink:0;}
+.r-cbox{background:rgba(139,74,56,.18);border:0.5px solid rgba(212,137,122,.22);border-radius:8px;padding:12px 14px;font-size:12px;color:rgba(245,237,224,.75);line-height:1.7;}
+.r-cbox strong{color:var(--terra2);}
+.r-data{font-size:9px;color:rgba(201,168,130,.22);letter-spacing:0.08em;text-align:center;border-top:0.5px solid rgba(201,168,130,.08);padding-top:11px;}
+.r-acts{display:flex;gap:8px;}
+.btn-act{flex:1;border:none;border-radius:24px;padding:13px 14px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s;}
+.btn-act.p{background:var(--terra);color:var(--cr);box-shadow:0 4px 16px rgba(139,74,56,.38);}
+.btn-act.s{background:rgba(255,255,255,.07);color:var(--cr);border:0.5px solid rgba(201,168,130,.18);}
+.btn-act:hover{transform:translateY(-1px);}
+
+/* ANIM */
+.fu{animation:fu .38s cubic-bezier(.4,0,.2,1);}
+@keyframes fu{from{opacity:0;transform:translateY(11px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="screen active" id="scr-cover">
+  <div style="background:#3D1F14;min-height:100vh;display:flex;flex-direction:column;">
+
+    <!-- PHOTO HERO -->
+    <!-- ▼ REPLACE olandria-cover.jpg with her actual photo — instructions below -->
+    <div style="width:100%;height:52vh;min-height:300px;max-height:420px;position:relative;overflow:hidden;flex-shrink:0;background:linear-gradient(160deg,#2A1508 0%,#5A2E1A 40%,#8B4A38 70%,#C9A882 100%);">
+      <img
+        id="cover-photo"
+        src="olandria-cover.jpg"
+        onerror="this.style.display='none'"
+        alt="Olandria Carthen — Bama Barbie"
+        style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;">
+      <!-- top badge -->
+      <div style="position:absolute;top:18px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(201,168,130,0.8);background:rgba(61,31,20,0.65);padding:5px 14px;border-radius:20px;white-space:nowrap;backdrop-filter:blur(6px);">✦ The Strategic Files · Fan Edition ✦</div>
+      <!-- bottom fade into dark -->
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(61,31,20,0.75) 80%,#3D1F14 100%);"></div>
+      <!-- title over image bottom -->
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:0 24px 20px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:#F5EDE0;line-height:1.05;margin-bottom:5px;">Which<br><em style="font-style:italic;color:#D4897A;">Olandria</em><br>Are You?</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:#C9A882;line-height:1.6;">Only a real Doll makes it to the end.</div>
+      </div>
+    </div>
+
+    <!-- ARCHETYPE EXPLAINER -->
+    <div style="background:#3D1F14;padding:24px 20px 0;flex:1;">
+
+      <!-- intro line -->
+      <div style="text-align:center;margin-bottom:18px;">
+        <div style="font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:#D4897A;font-family:'DM Sans',sans-serif;margin-bottom:7px;">Before you begin</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;color:#F5EDE0;line-height:1.45;max-width:300px;margin:0 auto;">Olandria carries <em style="color:#D4897A;">four archetypes</em> in her DNA.</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:rgba(201,168,130,0.65);line-height:1.6;max-width:280px;margin:6px auto 0;">The quiz reveals which one lives inside you.</div>
+      </div>
+      <!-- 4 archetype cards -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;">
+
+        <!-- THE MUSE -->
+        <div style="background:rgba(242,197,206,0.08);border-radius:10px;padding:13px 13px 14px;position:relative;overflow:hidden;">
+          <div>
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px;">
+              <div style="width:30px;height:30px;border-radius:50%;background:rgba(212,83,126,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-size:10px;font-weight:500;color:#F2C4CE;font-family:'DM Sans',sans-serif;">30%</span>
+              </div>
+              <div>
+                <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;color:#F2C4CE;font-family:'DM Sans',sans-serif;">The Muse</div>
+                <div style="font-size:9px;color:rgba(242,197,206,0.45);font-family:'DM Sans',sans-serif;margin-top:1px;">dominant archetype</div>
+              </div>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;color:#F2C4CE;line-height:1.5;margin-bottom:6px;">"She doesn't follow trends. She becomes the reference."</div>
+            <div style="font-size:11px;color:rgba(245,237,224,0.6);line-height:1.62;font-family:'DM Sans',sans-serif;">Her looks create <strong style="color:rgba(245,237,224,0.85);">emotions</strong> without a word. The Rahul Mishra gold dress. The Azature diamond spine. The internet names the moment — she doesn't.</div>
+          </div>
+        </div>
+
+        <!-- THE RULER -->
+        <div style="background:rgba(184,135,74,0.08);border-radius:10px;padding:13px 13px 14px;position:relative;overflow:hidden;">
+          <div>
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px;">
+              <div style="width:30px;height:30px;border-radius:50%;background:rgba(184,135,74,0.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-size:10px;font-weight:500;color:#C9A882;font-family:'DM Sans',sans-serif;">20%</span>
+              </div>
+              <div>
+                <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;color:#C9A882;font-family:'DM Sans',sans-serif;">The Ruler</div>
+                <div style="font-size:9px;color:rgba(201,168,130,0.4);font-family:'DM Sans',sans-serif;margin-top:1px;">long-term vision</div>
+              </div>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;color:#C9A882;line-height:1.5;margin-bottom:6px;">"Every move is a chess piece on a bigger board."</div>
+            <div style="font-size:11px;color:rgba(245,237,224,0.6);line-height:1.62;font-family:'DM Sans',sans-serif;">She interviewed <strong style="color:rgba(245,237,224,0.85);">15 teams</strong> before signing with UTA. Her job kept her position open just in case. She doesn't react — she positions.</div>
+          </div>
+        </div>
+
+        <!-- THE SAGE -->
+        <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:13px 13px 14px;position:relative;overflow:hidden;">
+          <div>
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px;">
+              <div style="width:30px;height:30px;border-radius:50%;background:rgba(139,74,56,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-size:10px;font-weight:500;color:#D4897A;font-family:'DM Sans',sans-serif;">15%</span>
+              </div>
+              <div>
+                <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;color:#D4897A;font-family:'DM Sans',sans-serif;">The Sage</div>
+                <div style="font-size:9px;color:rgba(212,137,122,0.4);font-family:'DM Sans',sans-serif;margin-top:1px;">the path-maker</div>
+              </div>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;color:#D4897A;line-height:1.5;margin-bottom:6px;">"She paves the road for the girl coming after her."</div>
+            <div style="font-size:11px;color:rgba(245,237,224,0.6);line-height:1.62;font-family:'DM Sans',sans-serif;">First-gen HBCU graduate. Cold-called strangers to fund her education. Went back to <strong style="color:rgba(245,237,224,0.85);">Tuskegee</strong> to speak. Carries representation without making it her whole identity.</div>
+          </div>
+        </div>
+
+        <!-- THE OUTLAW -->
+        <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:13px 13px 14px;position:relative;overflow:hidden;">
+          <div>
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px;">
+              <div style="width:30px;height:30px;border-radius:50%;background:rgba(212,137,122,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-size:10px;font-weight:500;color:#D4897A;font-family:'DM Sans',sans-serif;">15%</span>
+              </div>
+              <div>
+                <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;color:#D4897A;font-family:'DM Sans',sans-serif;">The Outlaw</div>
+                <div style="font-size:9px;color:rgba(212,137,122,0.4);font-family:'DM Sans',sans-serif;margin-top:1px;">the refusal</div>
+              </div>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;color:#D4897A;line-height:1.5;margin-bottom:6px;">"She enters rooms not built for her. Then she stays."</div>
+            <div style="font-size:11px;color:rgba(245,237,224,0.6);line-height:1.62;font-family:'DM Sans',sans-serif;">Said no to producers <strong style="color:rgba(245,237,224,0.85);">3 times</strong> before yes. Rejected the influencer pipeline. Enters spaces dark-skin Black women rarely occupy. Her own timeline, always.</div>
+          </div>
+        </div>
+
+      </div>
+      <!-- divider -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;padding:0 4px;">
+        <div style="flex:1;height:0.5px;background:rgba(201,168,130,0.15);"></div>
+        <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(201,168,130,0.35);font-family:'DM Sans',sans-serif;">8 questions · find yours</div>
+        <div style="flex:1;height:0.5px;background:rgba(201,168,130,0.15);"></div>
+      </div>
+
+      <!-- tags -->
+      <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;">
+        <span style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 11px;border-radius:20px;background:rgba(201,168,130,0.08);color:#C9A882;font-family:'DM Sans',sans-serif;">#BamaBarbie</span>
+        <span style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 11px;border-radius:20px;background:rgba(242,197,206,0.1);color:#F2C4CE;font-family:'DM Sans',sans-serif;">#TheDolls</span>
+        <span style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 11px;border-radius:20px;background:rgba(201,168,130,0.08);color:#C9A882;font-family:'DM Sans',sans-serif;">#Nicolandria</span>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center;padding-bottom:36px;">
+        <button onclick="start()" style="background:#8B4A38;color:#F5EDE0;border:none;border-radius:30px;padding:15px 44px;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;box-shadow:0 8px 28px rgba(139,74,56,0.45);transition:all .22s;width:100%;max-width:280px;display:block;margin:0 auto;">Start the quiz →</button>
+        <div style="font-size:10px;color:rgba(201,168,130,0.32);margin-top:10px;letter-spacing:0.06em;font-family:'DM Sans',sans-serif;">2 minutes · 4 results · shareable</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION -->
+<div class="screen" id="scr-q">
+  <div class="qs">
+    <div class="qhdr">
+      <div class="qhdr-logo">Olandria · Fan Quiz</div>
+      <div class="prog-wrap"><div class="prog-track"><div class="prog-fill" id="pfill" style="width:0%"></div></div></div>
+      <div class="qctr" id="qctr">1 / 8</div>
+    </div>
+    <div class="qwrap fu" id="qwrap"></div>
+    <div class="qnav"><button class="btn-nx" id="btnnx" onclick="next()">Next →</button></div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="screen" id="scr-r">
+  <div class="rs">
+    <div class="rhdr">
+      <div class="rhdr-logo">The Strategic Files · Fan Edition</div>
+      <div class="rhdr-tag">#BamaBarbie</div>
+    </div>
+    <div id="rcontent" class="fu"></div>
+  </div>
+</div>
+
+<script>
+const Q=[
+  {
+    n:1,v:"The Origin Story",
+    img:"q1-origin.jpg",
+    fb:"q1-origin.jpg",
+    q:"The producers called her three or four times before she finally said yes to Love Island. Why do you think she agreed?",
+    f:"She was literally the best seller at her corporate elevator company — they kept her position open just in case she wanted to come back.",
+    o:[
+      {t:"She knew the timing was finally right for her brand. She had a plan and Love Island fit it.",s:"B"},
+      {t:"She saw it as a chance to show the world who she really was — beauty, brains, Bama energy, all of it.",s:"A"},
+      {t:"Love finds a way. Some things are just bigger than a career plan.",s:"C"},
+      {t:"She already broke every rule — why not break the 'stay corporate, stay safe' one too?",s:"D"}
+    ]
+  },
+  {
+    n:2,v:"Nicolandria Mythology",
+    img:"q2-come-here-cream.jpg",
+    fb:"q2-come-here-cream.jpg",
+    q:"Day one. She looked at Nic and said \"Come on, cream.\" 55,000 people built an entire community around those three words. What does that tell you?",
+    f:"The Come Here Cream community hit 55K on Twitter before the season even ended. That's not a moment — that's mythology.",
+    o:[
+      {t:"She's magnetic. Even a throwaway line becomes iconic when the energy behind it is that real.",s:"A"},
+      {t:"She was clocking him from the start. That was calculated charm — she never does anything by accident.",s:"B"},
+      {t:"It's the beginning of their story and I will never, ever fully recover from it.",s:"C"},
+      {t:"She said what she said, didn't overthink it, and let it land. That is the whole move.",s:"D"}
+    ]
+  },
+  {
+    n:3,v:"The Slow Burn",
+    img:"q3-slowburn.jpg",
+    fb:"q3-slowburn.jpg",
+    q:"Nic told her \"when I walked in, you were one of the most beautiful women I've ever seen\" — and she still resisted him. Why?",
+    f:"His own friend kept telling Nic to stay away from her — while that same friend was actually interested in Olandria himself. She felt everything and still chose to protect everyone.",
+    o:[
+      {t:"Because beauty without trust is just a trap. She wasn't going to let a compliment skip the work.",s:"A"},
+      {t:"She wasn't going to let feelings override strategy. She needed to see the full picture first.",s:"B"},
+      {t:"She didn't want to hurt the people around her. She always leads with care, even when it costs her.",s:"C"},
+      {t:"She refused to be the easy choice. If he wanted her, he had to earn every single step.",s:"D"}
+    ]
+  },
+  {
+    n:4,v:"Southern Wit, Activated",
+    img:"q4-southern-wit.jpg",
+    fb:"q4-southern-wit.jpg",
+    q:"A girl on the show said her man left after 9 years together — no ring. Olandria's immediate response?",
+    f:"\"And he's still breathing?\" — the delivery, the pause, the full Southern accent. This deserves a Peabody Award.",
+    o:[
+      {t:"I screenshotted it the second it happened. Most quotable thing ever aired on television.",s:"A"},
+      {t:"Solid life advice in six words. No ring after 9 years? Next. Period.",s:"B"},
+      {t:"I was crying laughing but also genuinely healed. She said what we all needed to hear out loud.",s:"C"},
+      {t:"She said the unsayable on national TV without blinking once. That's the Outlaw move right there.",s:"D"}
+    ]
+  },
+  {
+    n:5,v:"The Great Debate — Team Pick",
+    img:"q5-kisses.jpg",
+    fb:"q5-kisses.jpg",
+    q:"The Soul Ties kiss. The Congratulations kiss. The fandom is still at war. You are firmly:",
+    f:"Soul Ties = the most watched episode in Love Island USA history. Congratulations = the day they were voted finalists and Nic said the word before kissing her.",
+    o:[
+      {t:"Team Soul Ties — the song 'Hardcore,' the intensity, the timing. Absolute cinema. Nothing tops it.",s:"A"},
+      {t:"Team Congratulations — it was earned. Everything they went through made that one kiss mean the most.",s:"B"},
+      {t:"I cannot choose and I will not. I rewatch both on rotation and I am fully at peace with this.",s:"C"},
+      {t:"Both are cinema but Soul Ties broke all the rules first. Final answer. Team Soul Ties.",s:"D"}
+    ]
+  },
+  {
+    n:6,v:"The Degree Era",
+    img:"q6-tuskegee.jpg",
+    fb:"q6-tuskegee.jpg",
+    q:"She went back to Tuskegee to give a speech. She personally cold-called strangers to fund her own education — and they actually said yes. Which Olandria quote lives in your head?",
+    f:"First-gen college graduate. HBCU alumna. Self-funded her education through sheer persuasion. Built the blueprint before she had a name for it.",
+    o:[
+      {t:"\"The boyfriend is cute but that degree is going to be cutter.\"",s:"B"},
+      {t:"\"I want Olandria to become a household name.\"",s:"A"},
+      {t:"\"He's part of me and you picking him apart won't make me feel good about myself.\"",s:"C"},
+      {t:"\"I love cussin'\" — said directly to her mother, on TV, with full Alabama accent.",s:"D"}
+    ]
+  },
+  {
+    n:7,v:"Fandom Is a Love Language",
+    img:"https://media.vanityfair.com/photos/6626b4c3e2f0a12345678901/master/w_1200,c_limit/olandria-coachella-barbie.jpg",
+    fb:"https://hips.hearstapps.com/hmg-prod/images/olandria-barbielandria.jpg",
+    q:"Esther becomes \"Esther Landria.\" Fans add berets to their profile pics for Paris. The whole timeline goes Barbielandria for Coachella. When Olandria has a major moment, you:",
+    f:"The Dolls don't just follow — they become part of the story every single time. Nobody told them to. They just did it, naturally, together.",
+    o:[
+      {t:"I change my profile picture every single time. No hesitation. I am the campaign.",s:"A"},
+      {t:"I love watching a brand so powerful that everything around it naturally renames itself.",s:"B"},
+      {t:"The fact that we all do it together — the community feeling — that is genuinely everything to me.",s:"C"},
+      {t:"That the fans started all of this with zero instruction is the most powerful organic movement I've seen.",s:"D"}
+    ]
+  },
+  {
+    n:8,v:"The Rocking Chair Theory",
+    img:"q8-rocking-chair.jpg",
+    fb:"q8-rocking-chair.jpg",
+    q:"Nic said \"I feel like a kid — I got the flutters.\" He said being with her is \"rainbow and butterflies.\" He said \"how can Olandria not be someone's type.\" After all of this — what does Nicolandria mean to you?",
+    f:"He also said he was happy it was all filmed so they can grow old and watch it together on their rocking chair. The Greece vlog still hasn't dropped. We are still waiting.",
+    o:[
+      {t:"It is the most beautiful aesthetic love story — the way they look at each other is an entire film.",s:"A"},
+      {t:"It is proof that when you build yourself fully, the right person recognizes it.",s:"B"},
+      {t:"It is everything. I need the Greece vlog. I need the rocking chair. I need all of it. Always.",s:"C"},
+      {t:"He went against his friend, against the game, against every obstacle — for her. That's the Outlaw move.",s:"D"}
+    ]
+  }
+];
+
+const R={
+  A:{
+    name:"The Muse",
+    tagline:"\"You don't follow trends. You become the reference.\"",
+    img:"result-muse.jpg",
+    fb:"result-muse.jpg",
+    desc:"You move through the world like Olandria moves through a room — your presence creates an emotion before you say a word. You have <strong>an instinct for beauty</strong> that others can't explain and you can't turn off. You save looks. You notice things nobody pointed out to you. The Azature diamond on the spine of that white backless dress? You felt it. The pink cheekbone highlight by Esther? You spotted it before it had a name. You don't need to announce yourself. <strong>You arrive and people adjust.</strong>",
+    traits:["Saves looks and references obsessively — your camera roll is a mood board","Noticed the Azature diamond detail before anyone explained it","Changes profile pic for every Olandria era without being asked","Has sent a look to someone with zero caption — because it needed none"],
+    quote:"\"I want Olandria to become a household name.\" — You believed this before it was obvious.",
+    content:"<strong>Silent Muse content was made for you.</strong> The GRWMs with no voiceover, the editorial arrivals, the red carpet moments where the look does all the talking. You are the first save, the first share. You don't comment — you pin.",
+    data:"Visual-first · saves aesthetic content · high story engagement · muse-mirror · Doll core"
+  },
+  B:{
+    name:"The Ruler",
+    tagline:"\"You don't react. You position.\"",
+    img:"result-ruler.jpg",
+    fb:"result-ruler.jpg",
+    desc:"While everyone else was watching the looks, you were watching the <strong>decisions</strong>. The 15 agency interviews before UTA. The corporate job kept open just in case. The three times she said no before she said yes. You are the one who sees the architecture beneath the aesthetic — and you are building something of your own too. The degree quote isn't just a quote to you. <strong>It's a manifesto.</strong> You plan. You control what can be controlled. You move on your own timeline, not anyone else's.",
+    traits:["Has the degree quote saved — and lives by it","Saw the strategy behind every brand deal she accepted or declined","Is building something long-term and won't rush it for anyone","Has told someone: she interviews teams before she signs. That's the move."],
+    quote:"\"The boyfriend is cute but that degree is going to be cutter.\" — This is your life philosophy.",
+    content:"<strong>Empire-building content</strong> is your love language. The Tuskegee speech, the Microsoft × HBCU partnership, the moment she explains a decision — that's when you feel most seen. You follow the blueprint.",
+    data:"Ambitious female audience · HBCU-aligned · strategy content · high YouTube retention · long-game thinkers"
+  },
+  C:{
+    name:"The Sage",
+    tagline:"\"You carry others with you as you rise.\"",
+    img:"result-sage.jpg",
+    fb:"result-sage.jpg",
+    desc:"You are the one who shows up — for Olandria, for the people around you, for the community. You felt the Come Here Cream moment because you understand what it means when love is <strong>chosen intentionally</strong>, not just felt. You were rooting for Nicolandria before the show understood what it had — because you recognise loyalty, care and emotional courage when you see it. Like Olandria, you put people first even when it costs you. <strong>You lead with your heart and your values, in that order.</strong>",
+    traits:["Was in the Come Here Cream community or found it the day after","Still needs the Greece vlog and will wait as long as it takes","Cried at 'I feel like a kid — I got the flutters' and is not ashamed","Quoted 'he's part of me' to someone who needed to hear it"],
+    quote:"\"He's part of me and you picking him apart won't make me feel good about myself.\" — Loyalty as a love language.",
+    content:"<strong>Community and gratitude content</strong> is your everything — when she talks directly to the Dolls, when she credits the people who showed up first, when Nicolandria gets a quiet moment. Cardi B energy: real, warm, no filter.",
+    data:"Community-first · emotional investor · high comment engagement · shares Nicolandria content · loyal fandom"
+  },
+  D:{
+    name:"The Outlaw",
+    tagline:"\"You enter rooms not built for you. And you rearrange the furniture.\"",
+    img:"result-outlaw.jpg",
+    fb:"result-outlaw.jpg",
+    desc:"You found her through a look that shouldn't have existed yet — the Rahul Mishra Heart of Gold dress, the Cavalli vintage mini with the strapped heels, the Brandon Blackwood brown dress at the CFDAs. You stayed because she <strong>refused every system</strong> designed to contain her. You are the one who sends her clips to people who don't follow her yet. You spotted the Brandon Blackwood pink bag before the drop announcement. Like Olandria, you don't wait for permission. <strong>You move first. The industry catches up later.</strong>",
+    traits:["Has sent an Olandria look to a fashion person with zero caption","Has an opinion on the Brandon Blackwood pink bag drop already","Respected that she said no to producers 3 times before saying yes","Knows the Reismans found her on Instagram while she was still in the villa"],
+    quote:"\"I love cussin'.\" — Said to her mother. On national TV. With the full Alabama accent. Icon.",
+    content:"<strong>Outlaw Muse content</strong> is your drug — the silent editorial clips, fashion week BTS, the mix that shouldn't work but becomes the reference. You are the audience fashion accounts repost. The Harper's Bazaar Vietnam cover? Every frame saved.",
+    data:"Fashion-forward · shares to non-fans · editorial saves · high Explore reach · industry-adjacent"
+  }
+};
+let cur=0, sc={A:0,B:0,C:0,D:0}, picked=false;
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function start(){show('scr-q');renderQ();}
+
+function imgTag(src, fb, alt){
+  return `<img src="${src}" 
+    onerror="if(this.dataset.tried){this.style.opacity='0';}else{this.dataset.tried=1;this.src='${fb}';}" 
+    alt="${alt}" loading="lazy">`;
+}
+
+function renderQ(){
+  const q=Q[cur];
+  picked=false;
+  document.getElementById('pfill').style.width=(cur/Q.length*100)+'%';
+  document.getElementById('qctr').textContent=(cur+1)+' / '+Q.length;
+  const btn=document.getElementById('btnnx');
+  btn.classList.remove('rdy');
+
+  const html=`
+    <div class="qimg">
+      ${imgTag(q.img, q.fb, q.v)}
+      <div class="qimg-grad"></div>
+      <div class="qimg-vibe">${q.v}</div>
+    </div>
+    <div class="qbody">
+      <div class="qnum">Question ${q.n} of ${Q.length}</div>
+      <div class="qtext">${q.q}</div>
+      <div class="qflavor">${q.f}</div>
+      <div class="opts">
+        ${q.o.map((o,i)=>`
+          <div class="opt" onclick="pick(this,'${o.s}')">
+            <div class="opt-lt">${String.fromCharCode(65+i)}</div>
+            <div class="opt-tx">${o.t}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+
+  const el=document.getElementById('qwrap');
+  el.innerHTML=html;
+  el.classList.remove('fu');
+  void el.offsetWidth;
+  el.classList.add('fu');
+}
+
+function pick(el,s){
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  if(!picked){sc[s]++;picked=true;}
+  else{
+    // replace last score if re-picking
+    const prev=document.querySelector('.opt.sel');
+    // already handled above
+  }
+  document.getElementById('btnnx').classList.add('rdy');
+}
+
+function next(){
+  if(!picked)return;
+  cur++;
+  if(cur<Q.length){renderQ();window.scrollTo(0,0);}
+  else result();
+}
+
+function result(){
+  show('scr-r');
+  const top=Object.entries(sc).sort((a,b)=>b[1]-a[1])[0][0];
+  const r=R[top];
+
+  const html=`
+    <div class="rhero">
+      ${imgTag(r.img, r.fb, r.name)}
+      <div class="rhero-ov"></div>
+      <div class="rhero-copy">
+        <div class="r-ey">Your archetype is</div>
+        <div class="r-name">${r.name}</div>
+        <div class="r-tagline">${r.tagline}</div>
+      </div>
+    </div>
+    <div class="rbody">
+      <div class="r-desc">${r.desc}</div>
+      <div class="r-quote"><div class="rq-tx">${r.quote}</div></div>
+      <div>
+        <div class="sec-lbl">You have definitely done at least 3 of these</div>
+        <div class="traits-grid">
+          ${r.traits.map(t=>`<div class="trait"><div class="trdot"></div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+      <div>
+        <div class="sec-lbl">What her content means to you</div>
+        <div class="r-cbox">${r.content}</div>
+      </div>
+      <div class="r-acts">
+        <button class="btn-act p" onclick="share('${r.name}','${r.tagline}')">Share my result ✦</button>
+        <button class="btn-act s" onclick="retake()">Retake</button>
+      </div>
+      <div class="r-data">DATA INSIGHT · ${r.data}</div>
+    </div>`;
+
+  const el=document.getElementById('rcontent');
+  el.innerHTML=html;
+  el.classList.remove('fu');
+  void el.offsetWidth;
+  el.classList.add('fu');
+}
+
+function share(name,tag){
+  const txt=`I got "${name}" — ${tag}\n\nWhich Olandria are you? 🩷\n#BamaBarbie #TheDolls #Nicolandria #TheStrategicFiles`;
+  if(navigator.share){navigator.share({title:'Which Olandria Are You?',text:txt});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt);alert('Result copied! Paste it anywhere 🩷');}
+}
+
+function retake(){
+  cur=0;sc={A:0,B:0,C:0,D:0};picked=false;
+  show('scr-cover');
+}
+</script>
+</body>
+</html>
